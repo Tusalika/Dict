@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Dict</string>
-    <string name="title_activity_test">test</string>
+    <string name="psE">英[%1$s]</string>
+    <string name="psA">美[%1$s]</string>
+    <string name="posAcceptation">基本释义:</string>
+    <string name="affix">词根/词缀</string>
+    <string name="sent">例句:</string>
+    <string name="pos">Dict</string>
+    <string name="vocabulary">我的生词本</string>
 </resources>

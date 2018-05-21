@@ -63,7 +63,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class MainActivity extends Activity {
     private SearchView searchView;
-    private TextView searchWords_key, searchWords_psE, searchWords_psA, searchWords_posAcceptation, searchWords_sent;
+    private TextView searchWords_key, searchWords_psE, searchWords_psA, searchWords_posAcceptation, searchWords_sent,searchWords_affix;
     private ImageButton searchWords_voiceE, searchWords_voiceA;
     private LinearLayout searchWords_posA_layout,searchWords_posE_layout, searchWords_linerLayout, searchWords_fatherLayout;
     private WordsAction wordsAction;
@@ -93,6 +93,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Button createDatabase=(Button) findViewById(R.id.create_database);
+//        createDatabase.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                LitePal.getDatabase();
+//            }
+//        });
         wordsAction = WordsAction.getInstance(this);
         //初始化控件
         searchWords_linerLayout = (LinearLayout) findViewById(R.id.searchWords_linerLayout);
@@ -110,6 +117,7 @@ public class MainActivity extends Activity {
         searchWords_key = (TextView) findViewById(R.id.searchWords_key);
         searchWords_psE = (TextView) findViewById(R.id.searchWords_psE);
         searchWords_psA = (TextView) findViewById(R.id.searchWords_psA);
+        searchWords_affix=(TextView) findViewById(R.id.searchWords_affix);
         searchWords_posAcceptation = (TextView) findViewById(R.id.searchWords_posAcceptation);
         searchWords_sent = (TextView) findViewById(R.id.searchWords_sent);
         searchWords_voiceE = (ImageButton) findViewById(R.id.searchWords_voiceE);
@@ -160,7 +168,7 @@ public class MainActivity extends Activity {
                     words = wordsHandler.getWords();
                     wordsAction.saveWords(words);
                     wordsAction.saveWordsMP3(words);
-                    handler.sendEmptyMessage(111);
+                    handler.sendEmptyMessage(111);//如果找不到词，返回111识别码
                 }
 
                 @Override
@@ -181,6 +189,7 @@ public class MainActivity extends Activity {
             searchWords_posAcceptation.setText(words.getFy());
             searchWords_posA_layout.setVisibility(View.GONE);
             searchWords_posE_layout.setVisibility(View.GONE);
+            searchWords_affix.setVisibility(View.GONE);
         } else {
             searchWords_posAcceptation.setText(words.getPosAcceptation());
             if(words.getPsE()!="") {
@@ -192,12 +201,17 @@ public class MainActivity extends Activity {
             if(words.getPsA()!="") {
                 searchWords_psA.setText(String.format(getResources().getString(R.string.psA), words.getPsA()));
                 searchWords_posA_layout.setVisibility(View.VISIBLE);
-            }else {
+            }
+            else {
                 searchWords_posA_layout.setVisibility(View.GONE);
             }
         }
         searchWords_key.setText(words.gettext());
         searchWords_sent.setText(words.getSent());
+        Log.d("test root",words.getRoot());
+        searchWords_affix.setText("词根:"+words.getRoot()+"\n"+"词缀:"+words.getAffix());//+"\n"+"词缀:"+words.gettext()
+        Log.d("test root",words.getRoot());
+        Log.d("test text",words.gettext());
         searchWords_linerLayout.setVisibility(View.VISIBLE);
     }
 
