@@ -38,8 +38,10 @@ import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +69,7 @@ public class MainActivity extends Activity {
     private ImageButton searchWords_voiceE, searchWords_voiceA;
     private LinearLayout searchWords_posA_layout,searchWords_posE_layout, searchWords_linerLayout, searchWords_fatherLayout;
     private WordsAction wordsAction;
+    private ListView mListView;
 
     private Words words = new Words();
     /**
@@ -100,8 +103,10 @@ public class MainActivity extends Activity {
 //                LitePal.getDatabase();
 //            }
 //        });
+
         wordsAction = WordsAction.getInstance(this);
         //初始化控件
+//        mListView=(ListView) findViewById(R.id.lv_contatc);
         searchWords_linerLayout = (LinearLayout) findViewById(R.id.searchWords_linerLayout);
         searchWords_posA_layout = (LinearLayout) findViewById(R.id.searchWords_posA_layout);
         searchWords_posE_layout = (LinearLayout) findViewById(R.id.searchWords_posE_layout);
